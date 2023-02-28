@@ -22,7 +22,8 @@ setTimeout(() => {
     postMessage('READY')
 }, 1000)
 
-onmessage = ({ data }) => {
-    console.log('Worker!', data)
-    postMessage({ 'ok': 'OK' })
+onmessage = async ({ data: video }) => {
+    const blinked = await service.handBlinked(video)
+    if (!blinked) return;
+    postMessage({ blinked })
 }
