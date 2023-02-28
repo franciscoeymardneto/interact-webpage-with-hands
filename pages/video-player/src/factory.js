@@ -5,24 +5,30 @@ import VideoPlayerService from "./service.js"
 import VideoPlayerView from "./view.js"
 
 
-const camera = await Camera.init()
+async function getWorker() {
+  if (supportsWorksType()) {
+    const worker = new Worker('./src/worker.js')
+    return worker
+  }
+  console.log('Não suporta work type')
 
-if (supportsWorksType()) {
-  console.log('Suport')
-} else {
-  console.log('Nop');
+  const workMocker = {
+    async postMessage() {},
+    onmessage(msg){}
+  }
+
+  return workMocker
 }
 
-const videoPlayerWorker = new Worker('./src/worker.js')
+const worker = getWorker()
+const camera = await Camera.init()
 const [rootPath] = window.location.href.split('/pages/')
 
 const factory = {
   async initalize() {
     return VideoPlayerController.initialize({
       view: new VideoPlayerView(),
-      service: new VideoPlayerService({ 
-        worker: videoPlayerWorker
-      }),
+      service: new VideoPlayerService({}),
       
     })
   }
