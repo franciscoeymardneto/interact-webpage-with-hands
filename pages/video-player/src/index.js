@@ -1,3 +1,3 @@
-import videoPlayer from "./factory"
+import videoPlayer from "./factory.js"
 
 await videoPlayer.initalize()

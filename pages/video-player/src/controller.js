@@ -9,7 +9,7 @@ export default class VideoPlayerController {
     }
    
     async init() {
-      
+      console.log('init')
     }
   
   }
