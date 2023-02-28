@@ -7,20 +7,20 @@ import VideoPlayerView from "./view.js"
 
 async function getWorker() {
   if (supportsWorksType()) {
+    console.log('Suporta')
     const worker = new Worker('./src/worker.js', {type: 'module'})
     return worker
   }
-  console.log('Não suporta work type')
 
   const workMocker = {
     async postMessage() {},
-    onmessage(msg){}
+    onmessage(msg){ console.log(msg)}
   }
 
   return workMocker
 }
 
-const worker = getWorker()
+const worker = await getWorker()
 const camera = await Camera.init()
 const [rootPath] = window.location.href.split('/pages/')
 
@@ -30,7 +30,6 @@ const factory = {
       view: new VideoPlayerView(),
       service: new VideoPlayerService({}),
       worker
-      
     })
   }
 }

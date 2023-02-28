@@ -5,15 +5,27 @@ export default class VideoPlayerController {
   constructor({ view, service,worker }) {
     this.#view = view
     this.#service = service
-    this.#worker = worker
+    this.#worker = this.#configureWorker(worker)
 
     this.#view.consfigureOnBtnClick(this.onBtnStart.bind(this))
+    
   }
 
   static async initialize(deps) {
     const controller = new VideoPlayerController(deps)
     controller.log('Not yet detected eye blink! click in the button to start ')
     return controller.init()
+  }
+
+  #configureWorker(worker) {
+    worker.onmessage = ({data}) => {
+      
+      if ('READY' === data) {
+        this.#view.enableButton()
+        return
+      }
+    }
+    return worker
   }
 
   async init() {

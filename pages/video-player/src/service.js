@@ -1,14 +1,18 @@
 export default class VideoPlayerService {
     #model = null
     #faceLandmarksDetection
-    constructor ({faceLandmarksDetection}){
+    constructor({ faceLandmarksDetection }) {
         this.#faceLandmarksDetection = faceLandmarksDetection
     }
 
     async loadModel() {
-        this.#model = this.#faceLandmarksDetection.load(
+        this.#model = await this.#faceLandmarksDetection.load(
             this.#faceLandmarksDetection.SupportedPackages.mediapipeFacemesh,
-            {maxFaces: 1}
+            { maxFaces: 1 }
         )
+    }
+
+    #estimateFaces (video) {
+
     }
 }
