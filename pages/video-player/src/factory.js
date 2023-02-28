@@ -7,7 +7,7 @@ import VideoPlayerView from "./view.js"
 
 async function getWorker() {
   if (supportsWorksType()) {
-    const worker = new Worker('./src/worker.js')
+    const worker = new Worker('./src/worker.js', {type: 'module'})
     return worker
   }
   console.log('Não suporta work type')
@@ -29,6 +29,7 @@ const factory = {
     return VideoPlayerController.initialize({
       view: new VideoPlayerView(),
       service: new VideoPlayerService({}),
+      worker
       
     })
   }
