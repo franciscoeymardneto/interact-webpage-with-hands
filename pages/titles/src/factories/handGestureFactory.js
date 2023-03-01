@@ -14,7 +14,7 @@ const [rootPath] = window.location.href.split('/pages/')
 
 
 const camera = await Camera.init()
-const getVideoFrame = GetVideoFrame()
+// const getVideoFrame = new GetVideoFrame()
 const factory = {
   async initalize() {
     return HandGestureController.initialize({
@@ -24,8 +24,7 @@ const factory = {
         handPoseDetection: window.handPoseDetection,
         handPoseVersion: window.VERSION
       }),
-      camera,
-      getVideoFrame
+      camera
     })
   }
 }

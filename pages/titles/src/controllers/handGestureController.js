@@ -2,12 +2,10 @@ export default class HandGestureController {
     #view
     #service
     #camera
-    #getVideoFrame
-    constructor({ view, service, camera, getVideoFrame }) {
+    constructor({ view, service, camera }) {
         this.#view = view
         this.#service = service
         this.#camera = camera
-        this.#getVideoFrame = getVideoFrame
     }
 
     static async initialize(deps) {
@@ -15,18 +13,23 @@ export default class HandGestureController {
         return controller.init()
     }
 
+    async #estimateHands () {
+        try {
+          const hands = await this.#service.estimateHands(this.#camera.video)
+        //   console.log(hands)  
+        } catch (error) {
+            console.error('Yamete Kudasai ', error)
+        }
+    }
 
-      async loop() {
-        const video = this.#camera.video
-        // const img = await this.#getVideoFrame.get(video)
-        
-        // await this.#service.estimateHands(img) 
-        // setTimeout(() => this.loop(), 100)
+      async #loop() {
+        await this.#service.initializeDetector()
+        await this.#estimateHands()
+        this.#view.loop(this.#loop.bind(this))
       }
     
 
     async init() {
-        await this.#service.initializeDetector()
-        await this.loop()
+        return this.#loop()
     }
 }
