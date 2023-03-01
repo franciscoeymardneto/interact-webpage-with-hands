@@ -3,10 +3,12 @@ export default class VideoPlayerController {
   #camera
   #worker
   #blinkCounter = 0
-  constructor({ view, camera, worker }) {
+  #getVideoFrame
+  constructor({ view, camera, worker, getVideoFrame }) {
     this.#view = view
     this.#camera = camera
     this.#worker = this.#configureWorker(worker)
+    this.#getVideoFrame = getVideoFrame
 
     this.#view.consfigureOnBtnClick(this.onBtnStart.bind(this))
 
@@ -45,9 +47,10 @@ export default class VideoPlayerController {
     console.log('init')
   }
 
-  loop() {
+  async loop() {
     const video = this.#camera.video
-    const img = this.#view.getVideoFrame(video)
+    const img = await this.#getVideoFrame.get(video)
+    
     this.#worker.send(img)
     this.log(`detecting eye blink...`)
     setTimeout(() => this.loop(), 100)

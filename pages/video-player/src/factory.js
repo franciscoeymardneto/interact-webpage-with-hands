@@ -1,4 +1,5 @@
 import Camera from "../../../lib/shared/camera.js"
+import GetVideoFrame from "../../../lib/shared/getVideoFrame.js"
 import { supportsWorksType } from "../../../lib/shared/util.js"
 import VideoPlayerController from "./controller.js"
 import VideoPlayerService from "./service.js"
@@ -43,6 +44,7 @@ async function getWorker() {
 
 const worker = await getWorker()
 const camera = await Camera.init()
+const getVideoFrame = new GetVideoFrame()
 const [rootPath] = window.location.href.split('/pages/')
 
 const factory = {
@@ -50,7 +52,8 @@ const factory = {
     return VideoPlayerController.initialize({
       view: new VideoPlayerView(),
       camera,
-      worker
+      worker,
+      getVideoFrame
     })
   }
 }
