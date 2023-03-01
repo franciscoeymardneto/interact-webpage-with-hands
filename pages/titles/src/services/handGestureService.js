@@ -9,6 +9,13 @@ export default class HandGestureService {
         this.#handPoseVersion = handPoseVersion
     }
 
+    async estimateHands(video) {
+        const hands = await this.#detector.estimateHands(video, {
+            flipHorizontal: true
+        })
+
+        console.log(hands)
+    }
     async initializeDetector() {
         if(this.#detector) return this.#detector;
 
