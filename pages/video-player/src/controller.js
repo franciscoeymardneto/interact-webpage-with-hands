@@ -47,13 +47,14 @@ export default class VideoPlayerController {
     console.log('init')
   }
 
-  async loop() {
+  async #loop() {
     const video = this.#camera.video
     const img = await this.#getVideoFrame.get(video)
     
     this.#worker.send(img)
     this.log(`detecting eye blink...`)
-    setTimeout(() => this.loop(), 100)
+    // this.#view.loop(this.#loop.bind(this))
+    setTimeout(() => this.#loop(), 100)
   }
 
   log(text) {
@@ -64,7 +65,7 @@ export default class VideoPlayerController {
   onBtnStart() {
     this.log('initializing detection...')
     this.#blinkCounter = 0
-    this.loop()
+    this.#loop()
   }
 
 }

@@ -4,6 +4,9 @@ export default class VideoPlayerView {
     #statusElement = document.querySelector('#status')
     #videoElement = document.querySelector('#video')
  
+    loop(fn) {
+        requestAnimationFrame(fn)
+    }
     togglePlayVideo() {
         if (this.#videoElement.paused) {
           this.#videoElement.play()
