@@ -2,10 +2,12 @@ export default class HandGestureController {
     #view
     #service
     #camera
-    constructor({ view, service, camera }) {
+    #getVideoFrame
+    constructor({ view, service, camera, getVideoFrame }) {
         this.#view = view
         this.#service = service
         this.#camera = camera
+        this.#getVideoFrame = getVideoFrame
     }
 
     static async initialize(deps) {
@@ -14,14 +16,14 @@ export default class HandGestureController {
     }
 
 
-    async loop() {
+      async loop() {
         const video = this.#camera.video
-
-        console.log(video);
-        // const img = this.#view.getVideoFrame(video)
+        // const img = await this.#getVideoFrame.get(video)
+        
         // await this.#service.estimateHands(img) 
-        //setTimeout(() => this.loop(), 100)
+        // setTimeout(() => this.loop(), 100)
       }
+    
 
     async init() {
         await this.#service.initializeDetector()
