@@ -21,5 +21,7 @@ export default class HandGestureService {
             maxHands: 2
         }
         this.#detector = await this.#handPoseDetection.createDetector(model, detectorConfig);
+
+        return this.#detector
     }
 }
