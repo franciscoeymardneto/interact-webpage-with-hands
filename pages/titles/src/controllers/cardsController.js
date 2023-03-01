@@ -41,6 +41,6 @@ export default class CardsController {
 
   static async initialize(deps) {
     const controller = new CardsController(deps)
-    return controller.init()
+    return await controller.init()
   }
 }
