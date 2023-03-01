@@ -17,7 +17,7 @@ export default class HandGestureService {
             // porcetagem de confianca dos gestos 90%
             9
         )
-        console.log({ predictions });
+        // console.log({ predictions });
 
         return predictions.gestures
     }
@@ -35,6 +35,7 @@ export default class HandGestureService {
             )
 
             const { x, y } = hand.keypoints.find(keypoint => keypoint.name === 'index_finger_tip')
+
             yield { event: result.name, x, y }
 
             console.log('detected', gestureStrings[result.name])
@@ -63,7 +64,7 @@ export default class HandGestureService {
             solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${this.#handPoseVersion}`,
             // full is the most hard and precisely
             modelType: 'lite',
-            maxHands: 2
+            maxHands: 1
         }
         this.#detector = await this.#handPoseDetection.createDetector(model, detectorConfig);
 

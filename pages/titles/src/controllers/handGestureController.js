@@ -1,7 +1,16 @@
+import { prepareRunChecker } from "../../../../lib/shared/util.js"
+
+const { shouldRun: scrollShouldRun } = prepareRunChecker({ timerDelay: 500 })
+
 export default class HandGestureController {
     #view
     #service
     #camera
+    #lastDirection = {
+        direction: '',
+        y: 0
+      }
+
     constructor({ view, service, camera }) {
         this.#view = view
         this.#service = service
@@ -13,12 +22,35 @@ export default class HandGestureController {
         return controller.init()
     }
 
+    #scrollPage(direction) {
+        const pixelsPerScroll = 400
+        if (this.#lastDirection.direction === direction) {
+          this.#lastDirection.y = (
+            direction === 'scroll-down' ?
+              this.#lastDirection.y + pixelsPerScroll :
+              this.#lastDirection.y - pixelsPerScroll
+          )
+        }
+        else {
+          this.#lastDirection.direction = direction
+        }
+    
+        this.#view.scrollPage(this.#lastDirection.y)
+    
+      }
+
     async #estimateHands () {
         try {
           const hands = await this.#service.estimateHands(this.#camera.video)
           
-          for await(gesture of this.#service.detectGestures(hands)){}
-        //   console.log(hands)  
+          for await(const { event, x, y } of this.#service.detectGestures(hands)){
+            if (event.includes('scroll')) {
+                if(!scrollShouldRun()) continue;
+                this.#scrollPage(event)
+              }
+          }
+
+
         } catch (error) {
             console.error('Yamete Kudasai ', error)
         }
