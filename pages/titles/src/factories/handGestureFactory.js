@@ -8,10 +8,7 @@ import HandGestureController from "./../controllers/handGestureController.js"
 import HandGestureService from "./../services/handGestureService.js"
 import HandGestureView from "./../views/handGestureView.js"
 import Camera from "../../../../lib/shared/camera.js"
-import GetVideoFrame from "../../../../lib/shared/getVideoFrame.js"
-
-const [rootPath] = window.location.href.split('/pages/')
-
+import { gestureStrings, knownGestures } from "../util/util"
 
 const camera = await Camera.init()
 // const getVideoFrame = new GetVideoFrame()
@@ -22,7 +19,9 @@ const factory = {
       service: new HandGestureService({
         fingerpose: window.fp,
         handPoseDetection: window.handPoseDetection,
-        handPoseVersion: window.VERSION
+        handPoseVersion: window.VERSION,
+        gestureStrings,
+        knownGestures
       }),
       camera
     })
