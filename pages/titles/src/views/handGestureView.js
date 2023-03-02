@@ -12,7 +12,34 @@ export default class HandGestureView {
   }
 
   drawResults(hands) {
+    for (const {keypoints, handedness} of hands) {
+      if (!keypoints) continue
 
+      this.#canvasContext.fillStyle = handedness === "Left" ? "red" : "green"
+      this.#canvasContext.strokeStyle = "white"
+      this.#canvasContext.lineWidth = 8
+      this.#canvasContext.lineJoin = "round"
+      
+      // juntas
+      this.#drawJoients(keypoints)
+    }
+  }
+
+  #drawJoients(keypoints) {
+    for(const {x, y} of keypoints){
+      this.#canvasContext.beginPath()
+
+      // ajuste para a ponta dos dedos
+      const newX = x - 2
+      const newY = y - 2
+      const radius = 3
+      const startAngle = 0
+      const endAngle = 2 * Math.PI
+
+      this.#canvasContext.arc(newX, newY, radius, startAngle, endAngle)
+      this.#canvasContext.fill()
+
+    }
   }
 
     loop (fn) {
