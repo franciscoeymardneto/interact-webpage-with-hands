@@ -1,4 +1,4 @@
-import { gestureStrings, knownGestures } from "./gestures"
+import { gestureStrings, knownGestures } from "./gestures.js"
 
 const fingerLookupIndexes = {
     thumb: [0, 1, 2, 3, 4],

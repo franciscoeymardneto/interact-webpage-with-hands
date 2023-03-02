@@ -13,6 +13,17 @@
     --card-scale: 5;
 }
 
+#hands {
+    /* faz com que elementos possam ser clicaveis */
+    pointer-events: none;
+
+    /* faz ficar em cima dos elementos */
+    position: fixed;
+
+    /* fica à frente dos elementos */
+    z-index: 2;
+}
+
 html,
 body {
     margin: 0;

@@ -1,10 +1,12 @@
 export default class HandGestureView {
   #handsCanvas = document.querySelector('#hands')
   #canvasContext = this.#handsCanvas.getContext('2d')
+  #fingerLookupIndexes
 
-  constructor(){
+  constructor(fingerLookupIndexes){
     this.#handsCanvas.width = globalThis.screen.availWidth
     this.#handsCanvas.height = globalThis.screen.availHeight
+    this.#fingerLookupIndexes = fingerLookupIndexes
   }
 
   clear() {
@@ -22,6 +24,7 @@ export default class HandGestureView {
       
       // juntas
       this.#drawJoients(keypoints)
+      this.#drawFingersAndHoverElements(keypoints)
     }
   }
 
@@ -39,6 +42,25 @@ export default class HandGestureView {
       this.#canvasContext.arc(newX, newY, radius, startAngle, endAngle)
       this.#canvasContext.fill()
 
+    }
+  }
+
+  #drawFingersAndHoverElements(keypoints) {
+    const fingers = Object.keys(this.#fingerLookupIndexes)
+    for (const finger of fingers) {
+      const points = this.#fingerLookupIndexes[finger].map(
+        index => keypoints[index]
+      )
+      const region = new Path2D()
+
+      // [0] é a palma da mao (wrist)
+      const [{x,y}] = points
+      region.moveTo(x,y)
+      for (const point of points) {
+        region.lineTo(point.x, point.y)
+      }
+
+      this.#canvasContext.stroke(region)
     }
   }
 
