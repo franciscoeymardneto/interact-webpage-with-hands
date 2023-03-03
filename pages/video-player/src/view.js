@@ -25,4 +25,8 @@ export default class VideoPlayerView {
     log(text) {
         this.#statusElement.innerHTML = text
     }
+
+    setVideoSrc(url) {
+        this.#videoElement.src = url
+    }
 }
