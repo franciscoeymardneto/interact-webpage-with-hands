@@ -23,7 +23,7 @@ Marque esse projeto com uma estrela 🌟
   - [V] - Deve disparar scroll up quando usar a palma das mãos abertas 🖐
   - [V] - Deve disparar scroll down quando usar a palma das mãos fechadas ✊
   - [V] - Deve disparar click no elemento mais próximo quando usar  gesto de pinça 🤏🏻
-  - [] - Ao mover elementos na tela, deve disparar evento **:hover** em elementos em contexto
+  - [V] - Ao mover elementos na tela, deve disparar evento **:hover** em elementos em contexto
 
 - Video Player
   - [V] - Deve ser possivel de reproduzir ou pausar videos com o piscar de olhos 😁
@@ -32,8 +32,8 @@ Marque esse projeto com uma estrela 🌟
 ### Desafios
 - [V] - Aula 01 - Diferenciar piscada de olhos entre olho direito e esquerdo e atualizar log para mostrar qual olho que piscou.
 - [V] - Aula 02 - Reconhecer gestos de mãos individuais e printar no log
-- [V] - Aula 03 - A definir
-- [] - Aula 04 - A definir
+- [V] - Aula 03 - Interação com os mãos
+- [V] - Aula 04 - Finalização
 
 ### Considerações
 - Tire suas dúvidas sobre os desafios em nossa comunidade, o objetivo é você aprender de forma divertida. Surgiu dúvidas? Pergunte por lá!
