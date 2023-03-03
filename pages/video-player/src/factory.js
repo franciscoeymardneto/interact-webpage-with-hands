@@ -5,6 +5,7 @@ import VideoPlayerController from "./controller.js"
 import VideoPlayerService from "./service.js"
 import VideoPlayerView from "./view.js"
 
+const [rootPath] = window.location.href.split('/pages/')
 const view = new VideoPlayerView()
 view.setVideoSrc(`${rootPath}/assets/video.mp4`)
 
@@ -48,7 +49,6 @@ const worker = await getWorker()
 const camera = await Camera.init()
 const getVideoFrame = new GetVideoFrame()
 
-const [rootPath] = window.location.href.split('/pages/')
 
 
 const factory = {
