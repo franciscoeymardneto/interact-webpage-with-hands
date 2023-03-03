@@ -41,7 +41,7 @@ export default class HandGestureService {
 
             yield { event: result.name, x, y }
 
-            console.log('detected', this.#gestureStrings[result.name])
+            //console.log('detected', this.#gestureStrings[result.name])
         }
     }
 
